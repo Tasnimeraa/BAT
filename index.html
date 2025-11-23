@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunflower Surprise for My Babe 💖</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'UnifrakturCook', cursive;
+    background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* Header */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 36px;
+    text-shadow: 2px 2px #ffcc00;
+}
+
+/* Scene */
+#scene {
+    width: 90%;
+    max-width: 800px;
+    margin: 40px auto;
+    position: relative;
+    height: 500px;
+    border-radius: 20px;
+    background: linear-gradient(to bottom, #111, #222);
+    box-shadow: 0 0 30px rgba(0,0,0,0.7);
+    overflow: hidden;
+}
+
+/* Characters */
+.character {
+    position: absolute;
+    width: 120px;
+    height: 180px;
+    bottom: 20px;
+    transition: transform 0.5s;
+}
+
+#you {
+    left: 20px;
+    background: url('https://i.imgur.com/OpvXgX2.png') no-repeat center/contain;
+}
+
+#babe {
+    right: 20px;
+    background: url('https://i.imgur.com/Iv4v7Ri.png') no-repeat center/contain;
+}
+
+/* Speech bubbles */
+.speech {
+    position: absolute;
+    background: rgba(255, 204, 0, 0.95);
+    color: #111;
+    padding: 10px;
+    border-radius: 15px;
+    max-width: 220px;
+    font-size: 16px;
+    text-align: center;
+    display: none;
+}
+
+/* Sunflower bouquet */
+.sunflower {
+    position: absolute;
+    width: 60px;
+    height: 80px;
+    background: url('https://i.imgur.com/5K2FZqF.png') no-repeat center/contain;
+}
+
+/* Hearts */
+.heart {
+    position: absolute;
+    font-size: 20px;
+    color: #ff3366;
+    animation: floatUp 5s linear infinite;
+    opacity: 0.8;
+}
+@keyframes floatUp {
+    0% {transform: translateY(0) translateX(0); opacity: 0.8;}
+    100% {transform: translateY(-500px) translateX(30px); opacity: 0;}
+}
+
+/* Button */
+#giveBouquet {
+    display: block;
+    margin: 20px auto;
+    padding: 15px 30px;
+    font-size: 20px;
+    border: none;
+    border-radius: 15px;
+    background: #ffcc00;
+    color: #111;
+    cursor: pointer;
+}
+
+/* Confetti */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ffcc00;
+    animation: confettiFall 2s linear forwards;
+}
+@keyframes confettiFall {
+    0% {transform: translateY(0) rotate(0deg);}
+    100% {transform: translateY(200px) rotate(360deg); opacity: 0;}
+}
+
+/* Floating sparkles */
+.sparkle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, #ffcc00 0%, rgba(255,204,0,0) 70%);
+    border-radius: 50%;
+    animation: sparkleAnim 3s linear infinite;
+}
+@keyframes sparkleAnim {
+    0% {transform: scale(0.5) translateY(0);}
+    50% {transform: scale(1.5) translateY(-50px);}
+    100% {transform: scale(0) translateY(-100px);}
+}
+</style>
+</head>
+<body>
+
+<h1>Sunflower Surprise for My Babe 💖</h1>
+
+<div id="scene">
+    <div id="you" class="character"></div>
+    <div id="babe" class="character"></div>
+    <div id="speechYou" class="speech"></div>
+    <div id="speechBabe" class="speech"></div>
+</div>
+
+<button id="giveBouquet">Give Bouquet 🌻</button>
+
+<script>
+// Floating hearts
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerText = "💗";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.animationDuration = (4 + Math.random()*3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+}
+setInterval(createHeart, 700);
+
+// Floating sparkles
+function createSparkle() {
+    const sparkle = document.createElement('div');
+    sparkle.classList.add('sparkle');
+    sparkle.style.left = Math.random() * window.innerWidth + "px";
+    sparkle.style.bottom = Math.random() * 200 + "px";
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 3000);
+}
+setInterval(createSparkle, 500);
+
+// Confetti effect
+function createConfetti(x, y){
+    for(let i=0;i<30;i++){
+        const conf = document.createElement('div');
+        conf.classList.add('confetti');
+        conf.style.left = (x + Math.random()*60 - 30) + "px";
+        conf.style.top = y + "px";
+        conf.style.background = `hsl(${Math.random()*360},100%,50%)`;
+        document.body.appendChild(conf);
+        setTimeout(() => conf.remove(), 2000);
+    }
+}
+
+// Give bouquet sequence
+document.getElementById('giveBouquet').addEventListener('click', () => {
+    const scene = document.getElementById('scene');
+    const speechYou = document.getElementById('speechYou');
+    const speechBabe = document.getElementById('speechBabe');
+
+    const messages = ["For you, babe 💖", "I miss you 😢", "I love you ❤️"];
+    let msgIndex = 0;
+
+    function showMessage(speechDiv, text){
+        speechDiv.innerText = text;
+        speechDiv.style.display = "block";
+        setTimeout(()=> speechDiv.style.display = "none", 2000);
+    }
+
+    function launchSunflower(delay){
+        setTimeout(()=>{
+            const sunflower = document.createElement('div');
+            sunflower.classList.add('sunflower');
+            sunflower.style.left = "140px";
+            sunflower.style.bottom = "100px";
+            scene.appendChild(sunflower);
+
+            let pos = 140;
+            const interval = setInterval(()=>{
+                if(pos < 520){
+                    pos += 5;
+                    sunflower.style.left = pos + "px";
+                } else {
+                    clearInterval(interval);
+                    sunflower.remove();
+                    createConfetti(pos, 100);
+                    // Show next message
+                    if(msgIndex < messages.length){
+                        showMessage(speechBabe, messages[msgIndex]);
+                        msgIndex++;
+                        if(msgIndex < messages.length){
+                            launchSunflower(1000); // next sunflower
+                        }
+                    }
+                }
+            }, 30);
+        }, delay);
+    }
+
+    // Start sequence
+    showMessage(speechYou, messages[msgIndex]);
+    msgIndex++;
+    launchSunflower(500);
+});
+</script>
+
+</body>
+</html>
